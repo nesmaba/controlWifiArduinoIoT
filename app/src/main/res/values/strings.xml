@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ControlWifiIoT</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="no_conectado">NO CONECTADO</string>
+    <string name="wifi">WIFI</string>
+</resources>

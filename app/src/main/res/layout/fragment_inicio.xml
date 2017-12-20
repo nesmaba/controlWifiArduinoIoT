@@ -1,0 +1,108 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.nestordeveloper.controlwifiiot.InicioFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:id="@+id/tvWifi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tvConectado"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="53dp"
+        android:layout_marginStart="53dp"
+        android:text="@string/wifi"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvConectado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="78dp"
+        android:layout_marginStart="78dp"
+        android:layout_marginTop="80dp"
+        android:layout_toEndOf="@+id/tvWifi"
+        android:layout_toRightOf="@+id/tvWifi"
+        android:text="@string/no_conectado"
+        android:textColor="@android:color/holo_red_dark" />
+
+    <TextView
+        android:id="@+id/textViewArduino"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/tvWifi"
+        android:layout_below="@+id/tvWifi"
+        android:layout_marginTop="25dp"
+        android:text="IP Arduino:"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/editTextIpArduino"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textViewArduino"
+        android:layout_alignBottom="@+id/textViewArduino"
+        android:layout_marginStart="23dp"
+        android:layout_toEndOf="@+id/textViewArduino"
+        android:ems="10"
+        android:inputType="number|numberDecimal"
+        android:digits="0123456789."
+        android:textSize="14sp"
+        android:hint="IP del Arduino" />
+
+    <Button
+        android:id="@+id/buttonConectarArduino"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/tvConectado"
+        android:layout_below="@+id/editTextIpArduino"
+        android:layout_marginStart="36dp"
+        android:text="Conectar" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textViewArduino"
+        android:layout_alignTop="@+id/buttonConectarArduino"
+        android:text="NO CONECTADO"
+        android:textColor="@android:color/holo_red_dark" />
+
+    <ToggleButton
+        android:id="@+id/toggleButtonLED"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textViewArduino"
+        android:layout_below="@+id/buttonConectarArduino"
+        android:layout_marginTop="40dp"
+        android:text="LED" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toggleButtonLED"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Respuesta Arduino:"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/editTextRespuestaArduino"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:background="@color/colorAccent"/>
+
+</RelativeLayout>
