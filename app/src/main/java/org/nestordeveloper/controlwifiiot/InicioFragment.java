@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -123,12 +124,19 @@ public class InicioFragment extends Fragment {
             public void onClick(View view) {
                 ipArduino=etIpArduino.getText().toString();
                 if(ipArduino.length()>0){
+                    if(asyncTaskConnWifi!=null)
+                        asyncTaskConnWifi.cancel(true);
                     if(asyncTaskConnWifi==null || asyncTaskConnWifi.isCancelled()) {
                         asyncTaskConnWifi = new AsyncTaskConnWifiCliente();
                         //myATaskYW.execute(ipArduino);
                         asyncTaskConnWifi.execute(ipArduino);
                         // La ip del arduino será la que tiene como servidor, por defecto es 192.168.4.1
                         // (tenemos que conectarnos antes a la wifi que genera el arduino como servidor
+                        InputMethodManager inputManager = (InputMethodManager)
+                                getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                        inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),
+                                InputMethodManager.HIDE_NOT_ALWAYS);
                     }else{
                         asyncTaskConnWifi.cancel(true);
                     }
