@@ -126,7 +126,9 @@ public class InicioFragment extends Fragment {
                     if(asyncTaskConnWifi==null || asyncTaskConnWifi.isCancelled()) {
                         asyncTaskConnWifi = new AsyncTaskConnWifiCliente();
                         //myATaskYW.execute(ipArduino);
-                        asyncTaskConnWifi.execute("192.168.1.72");
+                        asyncTaskConnWifi.execute(ipArduino);
+                        // La ip del arduino será la que tiene como servidor, por defecto es 192.168.4.1
+                        // (tenemos que conectarnos antes a la wifi que genera el arduino como servidor
                     }else{
                         asyncTaskConnWifi.cancel(true);
                     }
@@ -220,7 +222,7 @@ public class InicioFragment extends Fragment {
             try {
                 //Se conecta al servidor
                 serverAddr = InetAddress.getByName(ipArduino);
-                Log.i("IP/TCP Client", "Connecting...");
+                Log.i("IP/TCP Client", "Connecting..."+ipArduino);
                 socket = new Socket(serverAddr, SERVERPORT);
                 Log.i("I/TCP Client", "Connected to server");
 
@@ -243,10 +245,10 @@ public class InicioFragment extends Fragment {
                 */
                 return "Conectado al Arduino";
             }catch (UnknownHostException ex) {
-                Log.e("E/TCP Client", "" + ex.getMessage());
+                Log.e("E/TCP Client1", "" + ex.getMessage());
                 return ex.getMessage();
             } catch (IOException ex) {
-                Log.e("E/TCP Client", "" + ex.getMessage());
+                Log.e("E/TCP Client2", "" + ex.getMessage());
                 return ex.getMessage();
             }
         }
