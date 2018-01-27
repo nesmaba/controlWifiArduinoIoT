@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,103 +7,72 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <TextView
-        android:id="@+id/tvWifi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/tvConectado"
-        android:layout_alignParentLeft="true"
+    <ImageView
+        android:id="@+id/imageViewEfi"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="53dp"
-        android:layout_marginStart="53dp"
-        android:text="@string/wifi"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/tvConectado"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="78dp"
-        android:layout_marginStart="78dp"
-        android:layout_marginTop="80dp"
-        android:layout_toEndOf="@+id/tvWifi"
-        android:layout_toRightOf="@+id/tvWifi"
-        android:text="@string/no_conectado"
-        android:textColor="@android:color/holo_red_dark" />
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:src="@drawable/efi" />
 
-    <TextView
-        android:id="@+id/textViewArduino"
+    <ImageView
+        android:id="@+id/imageViewErasmus"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+
+        android:src="@drawable/erasmus" />
+
+    <ImageView
+        android:id="@+id/imageViewTesoro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/tvWifi"
-        android:layout_below="@+id/tvWifi"
-        android:layout_marginTop="25dp"
-        android:text="IP Arduino:"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:layout_alignBottom="@+id/imageViewErasmus"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="0dp"
+        android:src="@drawable/treasure" />
+
+    <TextView
+        android:id="@+id/textViewSolucion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageViewEfi"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:layout_marginTop="45dp"
+        android:text="La respuesta a la última pista es..." />
 
     <EditText
-        android:id="@+id/editTextIpArduino"
+        android:id="@+id/editTextSolucion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textViewArduino"
-        android:layout_alignBottom="@+id/textViewArduino"
-        android:layout_marginStart="23dp"
-        android:layout_toEndOf="@+id/textViewArduino"
+        android:layout_below="@+id/textViewSolucion"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
         android:ems="10"
-        android:inputType="number|numberDecimal"
-        android:digits="0123456789."
-        android:textSize="14sp"
-        android:hint="IP del Arduino" />
+        android:inputType="textPersonName"
+         />
 
-    <Button
-        android:id="@+id/buttonConectarArduino"
+    <ImageButton
+        android:id="@+id/imageButtonKey"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/tvConectado"
-        android:layout_below="@+id/editTextIpArduino"
-        android:layout_marginStart="36dp"
-        android:text="Conectar" />
+        android:layout_below="@+id/editTextSolucion"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/key" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textViewConexion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/textViewArduino"
-        android:layout_alignTop="@+id/buttonConectarArduino"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
         android:text="NO CONECTADO"
         android:textColor="@android:color/holo_red_dark" />
 
-    <ToggleButton
-        android:id="@+id/toggleButtonLED"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/textViewArduino"
-        android:layout_below="@+id/buttonConectarArduino"
-        android:layout_marginTop="40dp"
-        android:text="LED" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toggleButtonLED"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:text="Respuesta Arduino:"
-        android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/editTextRespuestaArduino"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="11dp"
-        android:ems="10"
-        android:inputType="textMultiLine"
-        android:background="@color/colorAccent"/>
 
 </RelativeLayout>

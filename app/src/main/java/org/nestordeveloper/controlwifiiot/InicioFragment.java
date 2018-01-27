@@ -2,6 +2,7 @@ package org.nestordeveloper.controlwifiiot;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,7 +44,8 @@ public class InicioFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private String ipArduino;
+    final private static String IP_ARDUINO="192.168.4.1";
+    final private static String SOLUCION="uhuru kenyatta";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -54,12 +57,10 @@ public class InicioFragment extends Fragment {
     Socket socket;
     AsyncTaskConnWifiCliente asyncTaskConnWifi;
 
-    TextView tvConectadoArduino;
-    Button btConectarArduino;
-    ToggleButton tgEncenderLed;
-    EditText etIpArduino;
-    TextView tvConectado;
-    EditText etRespuestaArduino;
+    EditText etSolucion;
+    TextView tvSolucion;
+    TextView tvConexion;
+    ImageButton btSolucion;
 
     private OnFragmentInteractionListener mListener;
 
@@ -100,15 +101,35 @@ public class InicioFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_inicio, container, false);
 
-        tvConectado = (TextView) v.findViewById(R.id.tvConectado);
-        btConectarArduino = (Button) v.findViewById(R.id.buttonConectarArduino);
+        tvSolucion = (TextView) v.findViewById(R.id.textViewSolucion);
+        btSolucion = (ImageButton) v.findViewById(R.id.imageButtonKey);
+        tvConexion = (TextView) v.findViewById(R.id.textViewConexion);
 
         // RECUPERAR ELEMENTOS VISUALES findViewById http://www.jc-mouse.net/proyectos/ejemplo-cliente-servidor-en-android
-        etIpArduino = (EditText) v.findViewById(R.id.editTextIpArduino);
-        etRespuestaArduino = (EditText) v.findViewById(R.id.editTextRespuestaArduino);
-        tgEncenderLed = (ToggleButton) v.findViewById(R.id.toggleButtonLED);
+        etSolucion = (EditText) v.findViewById(R.id.editTextSolucion);
 
-        tvConectado.setOnClickListener(new View.OnClickListener() {
+        // Nos conectamos con el Arduino mediante el WIfi
+        if(asyncTaskConnWifi!=null)
+            asyncTaskConnWifi.cancel(true);
+        if(asyncTaskConnWifi==null || asyncTaskConnWifi.isCancelled()) {
+            asyncTaskConnWifi = new AsyncTaskConnWifiCliente();
+            //myATaskYW.execute(ipArduino);
+            asyncTaskConnWifi.execute(IP_ARDUINO);
+            // La ip del arduino será la que tiene como servidor, por defecto es 192.168.4.1
+            // (tenemos que conectarnos antes a la wifi que genera el arduino como servidor
+            /*
+            InputMethodManager inputManager = (InputMethodManager)
+                    getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+
+            inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+                    */
+        }else{
+            asyncTaskConnWifi.cancel(true);
+        }
+
+        /*
+        btSolucion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -118,58 +139,25 @@ public class InicioFragment extends Fragment {
                 fragmentTransaction.commit();
             }
         });
+        */
 
-        btConectarArduino.setOnClickListener(new View.OnClickListener() {
+        btSolucion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ipArduino=etIpArduino.getText().toString();
-                if(ipArduino.length()>0){
-                    if(asyncTaskConnWifi!=null)
-                        asyncTaskConnWifi.cancel(true);
-                    if(asyncTaskConnWifi==null || asyncTaskConnWifi.isCancelled()) {
-                        asyncTaskConnWifi = new AsyncTaskConnWifiCliente();
-                        //myATaskYW.execute(ipArduino);
-                        asyncTaskConnWifi.execute(ipArduino);
-                        // La ip del arduino será la que tiene como servidor, por defecto es 192.168.4.1
-                        // (tenemos que conectarnos antes a la wifi que genera el arduino como servidor
-                        InputMethodManager inputManager = (InputMethodManager)
-                                getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-
-                        inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),
-                                InputMethodManager.HIDE_NOT_ALWAYS);
-                    }else{
-                        asyncTaskConnWifi.cancel(true);
-                    }
-                }else{
-                    Toast.makeText(getActivity().getApplicationContext(), "Escriba la ip del Arduino ", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-
-        tgEncenderLed.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(isChecked){
+                String respuesta = etSolucion.getText().toString().toLowerCase().trim();
+                System.out.println("RESPUESTA "+respuesta);
+                if(respuesta.equals(SOLUCION)){
+                    etSolucion.setBackgroundColor(Color.GREEN);
                     AsyncTaskEnviarRWifiCliente asyncTaskEnviarRWifiCliente =
                             new AsyncTaskEnviarRWifiCliente();
-                    asyncTaskEnviarRWifiCliente.execute("enciendeLED");
-
+                    asyncTaskEnviarRWifiCliente.execute("abre");
                 }else{
-                    AsyncTaskEnviarRWifiCliente asyncTaskEnviarRWifiCliente =
-                            new AsyncTaskEnviarRWifiCliente();
-                    asyncTaskEnviarRWifiCliente.execute("apagaLED");
+                    etSolucion.setBackgroundColor(Color.RED);
                 }
             }
         });
 
         return v;
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override
@@ -229,8 +217,8 @@ public class InicioFragment extends Fragment {
 
             try {
                 //Se conecta al servidor
-                serverAddr = InetAddress.getByName(ipArduino);
-                Log.i("IP/TCP Client", "Connecting..."+ipArduino);
+                serverAddr = InetAddress.getByName(IP_ARDUINO);
+                Log.i("IP/TCP Client", "Connecting..."+IP_ARDUINO);
                 socket = new Socket(serverAddr, SERVERPORT);
                 Log.i("I/TCP Client", "Connected to server");
 
@@ -268,8 +256,10 @@ public class InicioFragment extends Fragment {
         protected void onPostExecute(String value){
             progressBar.setVisibility(View.INVISIBLE);
             System.out.println("FIN ASYNC conectar");
-            if(value!=null)
-                etRespuestaArduino.setText(value);
+            if(value!=null) {
+                tvConexion.setTextColor(Color.GREEN);
+                tvConexion.setText(value);
+            }
         }
     }
 
@@ -302,10 +292,11 @@ public class InicioFragment extends Fragment {
             try {
                 if(socket!=null && socket.isConnected()) {
                     // Envia peticion de cliente
-                    Log.i("I/TCP Enviar", "Enviando mensaje");
+
                     PrintStream output = new PrintStream(socket.getOutputStream());
                     String request = values[0]; // en values estarán los diferentes argumentos a enviar al arduino
                     output.println(request);
+                    Log.i("I/TCP Enviar", "Enviando mensaje "+request);
                     /* Con el módulo ESP86 del Arduino no es muy estable para recibir datos de él y se queda colgado
                     // Recibe respuesta del servidor y formatea a String
                     Log.i("I/TCP Enviar", "Respuesta del servidor");
@@ -335,8 +326,10 @@ public class InicioFragment extends Fragment {
         protected void onPostExecute(String value){
             progressBar.setVisibility(View.INVISIBLE);
             System.out.println("FIN ASYNC enviar");
+            /*
             if(value!=null)
                 etRespuestaArduino.setText(value);
+            */
         }
     }
 
