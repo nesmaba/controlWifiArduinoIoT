@@ -60,6 +60,7 @@ public class InicioFragment extends Fragment {
     EditText etSolucion;
     TextView tvSolucion;
     TextView tvConexion;
+    TextView tvResultado;
     ImageButton btSolucion;
 
     private OnFragmentInteractionListener mListener;
@@ -104,6 +105,7 @@ public class InicioFragment extends Fragment {
         tvSolucion = (TextView) v.findViewById(R.id.textViewSolucion);
         btSolucion = (ImageButton) v.findViewById(R.id.imageButtonKey);
         tvConexion = (TextView) v.findViewById(R.id.textViewConexion);
+        tvResultado = (TextView) v.findViewById(R.id.textViewResultado);
 
         // RECUPERAR ELEMENTOS VISUALES findViewById http://www.jc-mouse.net/proyectos/ejemplo-cliente-servidor-en-android
         etSolucion = (EditText) v.findViewById(R.id.editTextSolucion);
@@ -147,11 +149,15 @@ public class InicioFragment extends Fragment {
                 String respuesta = etSolucion.getText().toString().toLowerCase().trim();
                 System.out.println("RESPUESTA "+respuesta);
                 if(respuesta.equals(SOLUCION)){
+                    tvResultado.setTextColor(Color.GREEN);
+                    tvResultado.setText("¡¡¡¡COOOORRECTOOOO!!!!");
                     etSolucion.setBackgroundColor(Color.GREEN);
                     AsyncTaskEnviarRWifiCliente asyncTaskEnviarRWifiCliente =
                             new AsyncTaskEnviarRWifiCliente();
                     asyncTaskEnviarRWifiCliente.execute("abre");
                 }else{
+                    tvResultado.setTextColor(Color.RED);
+                    tvResultado.setText("MAL... ¡ESTUDIA MÁS!");
                     etSolucion.setBackgroundColor(Color.RED);
                 }
             }
@@ -246,6 +252,10 @@ public class InicioFragment extends Fragment {
             } catch (IOException ex) {
                 Log.e("E/TCP Client2", "" + ex.getMessage());
                 return ex.getMessage();
+            }catch (Exception e){
+                Toast.makeText(getActivity().getApplicationContext(),"ERROR conexión Arduino", Toast.LENGTH_LONG).show();
+                Log.e("E/TCP Client3", "" + e.getMessage());
+                return e.getMessage();
             }
         }
 
@@ -315,7 +325,11 @@ public class InicioFragment extends Fragment {
             } catch (IOException e) {
                 e.printStackTrace();
                 return "No enviado al Arduino. "+e.getMessage();
-            }
+            }catch (Exception e){
+                Toast.makeText(getActivity().getApplicationContext(),"ERROR conexión Arduino", Toast.LENGTH_LONG).show();
+                Log.e("E/TCP Enviando", "" + e.getMessage());
+                return e.getMessage();
+        }
             return "No enviado al Arduino.";
         }
 
