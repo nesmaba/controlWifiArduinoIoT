@@ -1,0 +1,76 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.nestordeveloper.controlwifiiot.InicioFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ImageView
+        android:id="@+id/imageViewEfi"
+        android:layout_width="320dp"
+        android:layout_height="200dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/efi" />
+
+    <ImageView
+        android:id="@+id/imageViewErasmus"
+        android:layout_width="320dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/erasmus" />
+
+    <ImageView
+        android:id="@+id/imageViewTesoro"
+        android:layout_width="320dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="0dp"
+        android:src="@drawable/treasure" />
+
+    <TextView
+        android:id="@+id/textViewSolucion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageViewEfi"
+        android:gravity="center"
+        android:textSize="40dp"
+        android:layout_marginTop="45dp"
+        android:text="La respuesta a la última pista es..." />
+
+    <EditText
+        android:id="@+id/editTextSolucion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewSolucion"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:ems="15"
+        android:textSize="40dp"
+        android:inputType="textPersonName" />
+
+    <ImageButton
+        android:id="@+id/imageButtonKey"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/editTextSolucion"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/key" />
+
+    <TextView
+        android:id="@+id/textViewConexion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:text="NO CONECTADO"
+        android:textColor="@android:color/holo_red_dark" />
+
+
+</RelativeLayout>
